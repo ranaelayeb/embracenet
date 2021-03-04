@@ -32,20 +32,27 @@ This repository contains the official PyTorch- and TensorFlow-based implementati
 - Python 3.7+
 - PyTorch 1.5+
 
-### TensorFlow-based
+### TensorFlow-based (2.x)
+- Python 3.8+
+- TensorFlow 2.4+
+
+### TensorFlow-based (1.x)
 - Python 3.6+
 - TensorFlow 1.8+ (<2.0)
 
 
 ## Getting started
 
-The implementations of the EmbraceNet model are in the [```embracenet_pytorch/```](embracenet_pytorch/) and [```embracenet_tf1/```](embracenet_tf1/) folders.
+The implementations of the EmbraceNet model are in the [```embracenet_pytorch/```](embracenet_pytorch/), [```embracenet_tf2/```](embracenet_tf2/), and [```embracenet_tf1/```](embracenet_tf1/) folders.
 Copy the appropriate folder for your framework to your code base and import it.
 ```python
 # for PyTorch-based
 from embracenet_pytorch import EmbraceNet
 
-# for TensorFlow-based
+# for TensorFlow-based (2.x)
+from embracenet_tf2 import EmbraceNet
+
+# for TensorFlow-based (1.x)
 from embracenet_tf1 import EmbraceNet
 ```
 Here is a code snippet to employ EmbraceNet.
@@ -68,7 +75,25 @@ embraced_output = embracenet(input_list=[modality1, modality2]))
 
 Please refer to the comments in [```embracenet_pytorch/embracenet.py```](embracenet_pytorch/embracenet.py) for more information.
 
-### TensorFlow-based
+
+### TensorFlow-based (2.x)
+```python
+# Build a pre-processing network for each modality.
+# Assume that there are two pre-processed modalities (modality1, modality2) having sizes of 512 and 128.
+
+# Create an EmbraceNet object.
+embracenet = EmbraceNet(input_size_list=[512, 128], embracement_size=256)
+
+# Feed the output of the pre-processing network to EmbraceNet at the "forward" function of your module.
+embraced_output = embracenet(input_list=[modality1, modality2]))
+
+# Employ a post-processing network with inputting embraced_output.
+```
+
+Please refer to the comments in [```embracenet_tf2/embracenet.py```](embracenet_tf2/embracenet.py) for more information.
+
+
+### TensorFlow-based (1.x)
 ```python
 # Create an EmbraceNet object.
 embracenet = EmbraceNet(batch_size=16, embracement_size=256)
@@ -87,6 +112,9 @@ embraced_output = embracenet.embrace()
 Please refer to the comments in [```embracenet_tf1/embracenet.py```](embracenet_tf1/embracenet.py) for more information.
 
 
+
 ## Examples
+
+Example codes for TensorFlow 2 will be available soon.
 
 Example codes that employ EmbraceNet to build classifiers of [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) are included in the [```examples/fashion_mnist_pytorch/```](examples/fashion_mnist_pytorch/) and [```examples/fashion_mnist_tf1/```](examples/fashion_mnist_tf1/) folders.
