@@ -82,7 +82,8 @@ class BimodalMNISTModel():
 
   def predict(self, input_list):
     # get output
-    output_list = self.model(input_list)
+    input_tensor = tf.convert_to_tensor(np.array(input_list), dtype=tf.dtypes.float32)
+    output_list = self.model(input_tensor)
     prob_list = tf.nn.softmax(output_list)
     class_list = tf.math.argmax(prob_list, axis=-1)
 
@@ -132,11 +133,12 @@ class EmbraceNetBimodalModel(tf.keras.Model):
     # drop left or right modality
     availabilities = None
     if (self.args.model_drop_left or self.args.model_drop_right):
-      availabilities = tf.ones([x.shape[0], 2])
+      availabilities_npy = np.ones([x.shape[0], 2])
       if (self.args.model_drop_left):
-        availabilities[:, 0] = 0
+        availabilities_npy[:, 0] = 0
       if (self.args.model_drop_right):
-        availabilities[:, 1] = 0
+        availabilities_npy[:, 1] = 0
+      availabilities = tf.convert_to_tensor(availabilities_npy)
 
     # dropout during training
     if (self.is_training and self.args.model_dropout):
