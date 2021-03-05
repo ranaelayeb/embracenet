@@ -115,6 +115,4 @@ Please refer to the comments in [```embracenet_tf1/embracenet.py```](embracenet_
 
 ## Examples
 
-Example codes for TensorFlow 2 will be available soon.
-
 Example codes that employ EmbraceNet to build classifiers of [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) are included in the [```examples/fashion_mnist_pytorch/```](examples/fashion_mnist_pytorch/), [```examples/fashion_mnist_tf2/```](examples/fashion_mnist_tf2/), and [```examples/fashion_mnist_tf1/```](examples/fashion_mnist_tf1/) folders.
